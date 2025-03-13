@@ -73,7 +73,7 @@ resume_analyser = ResumeAnalyzer()
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return "hello, Flask"
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
