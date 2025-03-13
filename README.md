@@ -29,8 +29,6 @@ Simply open the `index.html` file in a web browser.
 ## 🚀 Live Demo
 [Click here to check out the live project](https://job-recommendation-na60.onrender.com/)
 
-## 📸 Screenshots
-_Add screenshots here to showcase the UI_
 
 ## 🤝 Contributing
 1. Fork the repository
