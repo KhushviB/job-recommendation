@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendations</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+    <style>
+        .job-card {
+  position: relative; 
+  padding: 20px; 
+  border: 1px solid #ddd; 
+  border-radius: 10px;
+}
+
+.heart-container {
+  --heart-color: rgb(0, 110, 97);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  transition: .3s;
+  z-index: 10; 
+}
+
+.heart-container .checkbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.heart-container .svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart-container .svg-outline,
+        .heart-container .svg-filled {
+  fill: var(--heart-color);
+  position: absolute;
+}
+
+.heart-container .svg-filled {
+  animation: keyframes-svg-filled 1s;
+  display: none;
+}
+
+.heart-container .svg-celebrate {
+  position: absolute;
+  animation: keyframes-svg-celebrate .5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-filled {
+  display: block
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-celebrate {
+  display: block
+}
+
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+    display: none;
+  }
+}
+        .container {
+          --uib-size: 200px;
+          --uib-color: rgb(0, 120, 108);
+          --uib-speed: 3s;
+          position: relative;
+          height: var(--uib-size);
+          width: var(--uib-size);
+          animation: rotate calc(var(--uib-speed) * 4) linear infinite;
+        }
+      
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      
+        .particle {
+          position: absolute;
+          top: 0%;
+          left: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: 100%;
+      
+          &:nth-child(1) {
+            --uib-delay: 0;
+            transform: rotate(8deg);
+          }
+          &:nth-child(2) {
+            --uib-delay: -0.4;
+            transform: rotate(36deg);
+          }
+      
+          &:nth-child(3) {
+            --uib-delay: -0.9;
+            transform: rotate(72deg);
+          }
+          &:nth-child(4) {
+            --uib-delay: -0.5;
+            transform: rotate(90deg);
+          }
+          &:nth-child(5) {
+            --uib-delay: -0.3;
+            transform: rotate(144deg);
+          }
+          &:nth-child(6) {
+            --uib-delay: -0.2;
+            transform: rotate(180deg);
+          }
+          &:nth-child(7) {
+            --uib-delay: -0.6;
+            transform: rotate(216deg);
+          }
+          &:nth-child(8) {
+            --uib-delay: -0.7;
+            transform: rotate(252deg);
+          }
+          &:nth-child(9) {
+            --uib-delay: -0.1;
+            transform: rotate(300deg);
+          }
+          &:nth-child(10) {
+            --uib-delay: -0.8;
+            transform: rotate(324deg);
+          }
+          &:nth-child(11) {
+            --uib-delay: -1.2;
+            transform: rotate(335deg);
+          }
+          &:nth-child(12) {
+            --uib-delay: -0.5;
+            transform: rotate(290deg);
+          }
+          &:nth-child(13) {
+            --uib-delay: -0.2;
+            transform: rotate(240deg);
+          }
+        }
+      
+        .particle::before {
+          content: '';
+          position: absolute;
+          height: 17.5%;
+          width: 17.5%;
+          border-radius: 50%;
+          background-color: var(--uib-color);
+          flex-shrink: 0;
+          transition: background-color 0.3s ease;
+          --uib-d: calc(var(--uib-delay) * var(--uib-speed));
+          animation: orbit var(--uib-speed) linear var(--uib-d) infinite;
+        }
+      
+        @keyframes orbit {
+          0% {
+            transform: translate(calc(var(--uib-size) * 0.5)) scale(0.73684);
+            opacity: 0.65;
+          }
+          5% {
+            transform: translate(calc(var(--uib-size) * 0.4)) scale(0.684208);
+            opacity: 0.58;
+          }
+          10% {
+            transform: translate(calc(var(--uib-size) * 0.3)) scale(0.631576);
+            opacity: 0.51;
+          }
+          15% {
+            transform: translate(calc(var(--uib-size) * 0.2)) scale(0.578944);
+            opacity: 0.44;
+          }
+          20% {
+            transform: translate(calc(var(--uib-size) * 0.1)) scale(0.526312);
+            opacity: 0.37;
+          }
+          25% {
+            transform: translate(0%) scale(0.47368);
+            opacity: 0.3;
+          }
+          30% {
+            transform: translate(calc(var(--uib-size) * -0.1)) scale(0.526312);
+            opacity: 0.37;
+          }
+          35% {
+            transform: translate(calc(var(--uib-size) * -0.2)) scale(0.578944);
+            opacity: 0.44;
+          }
+          40% {
+            transform: translate(calc(var(--uib-size) * -0.3)) scale(0.631576);
+            opacity: 0.51;
+          }
+          45% {
+            transform: translate(calc(var(--uib-size) * -0.4)) scale(0.684208);
+            opacity: 0.58;
+          }
+          50% {
+            transform: translate(calc(var(--uib-size) * -0.5)) scale(0.73684);
+            opacity: 0.65;
+          }
+          55% {
+            transform: translate(calc(var(--uib-size) * -0.4)) scale(0.789472);
+            opacity: 0.72;
+          }
+          60% {
+            transform: translate(calc(var(--uib-size) * -0.3)) scale(0.842104);
+            opacity: 0.79;
+          }
+          65% {
+            transform: translate(calc(var(--uib-size) * -0.2)) scale(0.894736);
+            opacity: 0.86;
+          }
+          70% {
+            transform: translate(calc(var(--uib-size) * -0.1)) scale(0.947368);
+            opacity: 0.93;
+          }
+          75% {
+            transform: translate(0%) scale(1);
+            opacity: 1;
+          }
+          80% {
+            transform: translate(calc(var(--uib-size) * 0.1)) scale(0.947368);
+            opacity: 0.93;
+          }
+          85% {
+            transform: translate(calc(var(--uib-size) * 0.2)) scale(0.894736);
+            opacity: 0.86;
+          }
+          90% {
+            transform: translate(calc(var(--uib-size) * 0.3)) scale(0.842104);
+            opacity: 0.79;
+          }
+          95% {
+            transform: translate(calc(var(--uib-size) * 0.4)) scale(0.789472);
+            opacity: 0.72;
+          }
+          100% {
+            transform: translate(calc(var(--uib-size) * 0.5)) scale(0.73684);
+            opacity: 0.65;
+          }
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+          height: 100vh;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 40;
+          transition: transform 0.3s ease-in-out;
+          overflow-y: auto;
+        }
+
+        .sidebar-toggle {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          z-index: 50;
+        }
+
+        @media (max-width: 768px) {
+          .sidebar {
+            transform: translateX(-100%);
+          }
+          .sidebar.open {
+            transform: translateX(0);
+          }
+          .main-content {
+            margin-left: 0;
+          }
+        }
+
+        /* Progress bar styling */
+        .progress-bar {
+          height: 6px;
+          border-radius: 3px;
+          background: linear-gradient(90deg, #64FFDA 0%, #41967e 100%);
+        }
+
+        /* Custom scrollbar for the sidebar */
+        .sidebar::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+          background: #0a1f1f;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+          background: #64FFDA;
+          border-radius: 2px;
+        }
+      </style>
+      
+    
+</head>
+<body class="bg-[#040F0F] min-h-screen">
+    <!-- Sidebar Toggle Button (mobile only) -->
+    <button id="sidebarToggle" class="sidebar-toggle md:hidden bg-[#64FFDA] text-[#040F0F] p-2 rounded-full shadow-lg">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar w-64 md:w-80 bg-gradient-to-b from-[#040F0F] to-[#0a1f1f] text-white border-r border-[#64FFDA]/20 p-6 shadow-xl transform md:translate-x-0 -translate-x-full">
+      <div class="flex flex-col h-full">
+        <!-- Developer Info -->
+        <div class="mb-8 space-y-4">
+          <div class="flex items-center justify-center mb-4">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-[#64FFDA] flex items-center justify-center">
+              <span class="text-xl font-bold text-[#040F0F]">KB</span>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-center text-gray-100">Developed by</h2>
+          <h3 class="text-xl font-bold text-center bg-gradient-to-r from-purple-400 to-[#64FFDA] bg-clip-text text-transparent">Khushvi Bamrolia 💜</h3>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="mb-8">
+          <h4 class="text-lg font-semibold text-[#64FFDA] mb-4">Tech Stack</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-code text-[#64FFDA] mr-2"></i> Python</li>
+            <li class="flex items-center"><i class="fas fa-server text-[#64FFDA] mr-2"></i> Flask API</li>
+            <li class="flex items-center"><i class="fas fa-brain text-[#64FFDA] mr-2"></i> Scikit-learn</li>
+            <li class="flex items-center"><i class="fas fa-file-code text-[#64FFDA] mr-2"></i> HTML/CSS/JavaScript</li>
+            <li class="flex items-center"><i class="fas fa-palette text-[#64FFDA] mr-2"></i> Tailwind CSS</li>
+          </ul>
+        </div>
+
+        <!-- ML Algorithms -->
+        <div class="mb-8">
+          <h4 class="text-lg font-semibold text-[#64FFDA] mb-4">ML Algorithms</h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-medium mb-1">Random Forest</p>
+              <div class="w-full bg-[#041414] rounded-full h-1.5">
+                <div class="progress-bar w-11/12"></div>
+              </div>
+              <div class="flex justify-between text-xs mt-1">
+                <span>Accuracy: 92%</span>
+                <span>K-fold: 5</span>
+              </div>
+            </div>
+            
+            <div>
+              <p class="font-medium mb-1">Gradient Boosting</p>
+              <div class="w-full bg-[#041414] rounded-full h-1.5">
+                <div class="progress-bar w-10/12"></div>
+              </div>
+              <div class="flex justify-between text-xs mt-1">
+                <span>Accuracy: 88%</span>
+                <span>K-fold: 5</span>
+              </div>
+            </div>
+            
+            <div>
+              <p class="font-medium mb-1">KNN</p>
+              <div class="w-full bg-[#041414] rounded-full h-1.5">
+                <div class="progress-bar w-9/12"></div>
+              </div>
+              <div class="flex justify-between text-xs mt-1">
+                <span>Accuracy: 84%</span>
+                <span>K-fold: 5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hyperparameter Tuning -->
+        <div class="mb-6">
+          <h4 class="text-lg font-semibold text-[#64FFDA] mb-2">Hyperparameter Tuning</h4>
+          <p class="text-sm text-gray-300 mb-3">Techniques used to optimize model performance:</p>
+          <ul class="text-sm space-y-1">
+            <li class="flex items-center"><i class="fas fa-check-circle text-[#64FFDA] mr-2"></i> Grid Search CV</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-[#64FFDA] mr-2"></i> Random Search CV</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-[#64FFDA] mr-2"></i> Bayesian Optimization</li>
+          </ul>
+        </div>
+
+        <!-- Project Links -->
+        <div class="mt-auto pt-6 border-t border-[#64FFDA]/20">
+          <div class="flex justify-center space-x-4">
+            <a href="#" class="text-gray-300 hover:text-[#64FFDA] transition-colors">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-[#64FFDA] transition-colors">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-[#64FFDA] transition-colors">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content md:ml-80 transition-all duration-300">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-[#040F0F] to-[#0a1f1f]">
+        <div class="mb-8 flex items-center">
+            <i class="fas fa-paper-plane text-[#64FFDA] text-2xl mr-3 animate-bounce"></i>
+            <h1 class="text-3xl font-bold text-gray-100">Let&#39;s Find Your Dream Job! ✨</h1>
+        </div>
+        <div class="bg-[#0a1f1f] rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 space-y-6 backdrop-blur-sm border border-[#64FFDA]/20 transform hover:-translate-y-1">
+       
+        
+        
+        <form id="resumeForm" class="border-2 border-dashed border-[#64FFDA] rounded-xl p-8 text-center hover:border-[#64FFDA] transition-all cursor-pointer bg-gradient-to-br from-[#040F0F] to-[#0a1f1f] hover:shadow-lg transform hover:-translate-y-1">
+            <div class="mb-8">
+                <!-- <label for="resume" class="block text-sm font-medium text-gray-300 mb-2">Upload Resume</label> -->
+                <!-- <label for="resume" class="block text-gray-700">Upload Resume</label> -->
+                <input type="file" id="resume" name="resume"  class="hidden">
+                <p class="font-medium text-sm text-gray-300">✨ Drop your resume here, let&#39;s make magic happen! ✨</p>
+                <p class="mt-1 text-sm text-gray-300">or</p>
+                <label for="resume" id="fileName"class="mt-2 inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-gradient-to-r from-[#64FFDA] to-[#41967e] hover:from-[#7affd9] hover:to-[#4daf94] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#64FFDA] transition-all transform hover:scale-105 shadow-md">
+                    Browse Files
+                </label>
+                <!-- <p id="fileName">No file selected</p> -->
+                <i class="fas fa-file-sparkles text-4xl text-[#64FFDA] mb-4 hover:scale-110 transition-transform animate-bounce"></i>
+            </div>
+            <button type="submit" class="text-white px-4 py-2 rounded" style="background-color: rgb(91, 0, 137); ;">Upload Resume</button>
+        </form>
+        <div class="space-y-4">
+            <div class="relative">
+       
+              
+        <form id="jobForm">
+            <label for="experience" class="block text-sm font-medium text-gray-300 mb-2">Years of Experience</label>
+            <div class="relative">
+                <!-- <label for="experience" class="block text-gray-700">Years of Experience</label> -->
+                <i class="fas fa-lightbulb absolute left-3 top-1/2 -translate-y-1/2 text-[#64FFDA] animate-pulse"></i>
+                <input type="number" min="0" max="20" placeholder="e.g. 3" id="experience" name="experience" class="pl-10 w-full rounded-full border-[#64FFDA]/30 bg-[#0a1f1f] text-gray-100 shadow-sm focus:border-[#64FFDA] focus:ring focus:ring-[#64FFDA]/20 transition-colors"/>
+            </div>
+            <label for="num_recommendations" class="block text-sm font-medium text-gray-300 mb-2">Number of Recommendations</label>
+            <div class="relative">
+                <!-- <label for="num_recommendations" class="block text-gray-700">Number of Recommendations</label> -->
+                <input type="range" id="num_recommendations" name="num_recommendations" min="1" max="10" value="5" class="w-full h-2 bg-gradient-to-r from-[#64FFDA]/30 to-[#64FFDA] rounded-lg appearance-none cursor-pointer accent-[#64FFDA]"/>
+                <!-- <input type="number" id="num_recommendations" name="num_recommendations" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="5"> -->
+                <div class="flex justify-between text-xs text-gray-400 px-2 mt-2">
+                    <span>1</span>
+                    <span>5</span>
+                    <span>10</span>
+                </div>
+            </div>
+            <div class="pt-4 flex justify-center">
+              <button type="submit" class="w-full max-w-md px-8 py-4 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-[#64FFDA] to-[#41967e] hover:from-[#7affd9] hover:to-[#4daf94] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#64FFDA] transition-all transform hover:scale-[1.02] shadow-lg hover:shadow-2xl"><i class="fas fa-wand-magic-sparkles mr-2 animate-bounce"></i>Find My Perfect Match ✨</button>
+            </div>
+        </form>
+        </div>
+        </div>
+
+        <div id="extracted-info" class="bg-[#0a1f1f] rounded-xl shadow-lg hover:shadow-xl text-white duration-300 p-8 space-y-6 backdrop-blur-sm border border-[#64FFDA]/20 transform hover:-translate-y-1 hidden">
+            <h2 class="text-lg font-bold">Extracted Information</h2>
+            <p><strong>Education:</strong> <span id="education-info"></span></p>
+            <p><strong>Skills:</strong> <span id="skills-info"></span></p>
+        </div>
+        
+
+        <div class="mb-8 flex items-center mt-8">
+            <h1 class="text-3xl font-bold text-gray-100">Personalized Recommendations for you💫🎉</h1>
+        </div>
+        <div id="recommendations" class="bg-[#0a1f1f] rounded-xl shadow-lg hover:shadow-xl text-white duration-300 backdrop-blur-sm transform hover:-translate-y-1"></div>
+            
+      </div>
+    </div>
+
+    <div id="loading" class="hidden fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center" style="background-color: rgba(4, 15, 15, 0.8);">
+        <div class="container">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <script>
+      document.getElementById('resume').addEventListener('change', function() {
+          let fileName = this.files.length > 0 ? this.files[0].name : "No file selected";
+          document.getElementById('fileName').textContent = fileName;
+      });
+  </script>
+  <script>
+
+        // Mobile sidebar toggle
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            
+            if (window.innerWidth < 768 && 
+                !sidebar.contains(event.target) && 
+                !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Sample data for demonstration
+        let extractedSkills = [];
+        let extractedEducation = "";
+
+        document.getElementById('resumeForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const resumeFile = document.getElementById('resume').files[0];
+            formData.append('file', resumeFile);
+
+            // Show loading indicator
+            const loadingIndicator = document.getElementById('loading');
+            loadingIndicator.classList.remove('hidden');
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/upload_resume', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const resumeData = await response.json();
+                extractedSkills = resumeData.skills;
+                extractedEducation = resumeData.education;
+
+                // Display extracted information
+                document.getElementById('education-info').innerText = extractedEducation;
+                document.getElementById('skills-info').innerText = extractedSkills.join(', ');
+                document.getElementById('extracted-info').classList.remove('hidden');
+
+                alert('Resume uploaded successfully and data extracted! Now enter your experience and get recommendations.');
+            } catch (error) {
+                console.error('Error uploading resume:', error);
+                alert('Error uploading resume. Please try again or check the server connection.');
+            } finally {
+                // Hide loading indicator
+                loadingIndicator.classList.add('hidden');
+            }
+        });
+
+
+        document.getElementById('jobForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const experience = document.getElementById('experience').value;
+            const num_recommendations = document.getElementById('num_recommendations').value;
+
+            const formData = {
+                skills: extractedSkills,
+                education: extractedEducation,
+                experience: parseFloat(experience),
+                num_recommendations: parseInt(num_recommendations, 10)
+            };
+
+            // Show loading indicator
+            const loadingIndicator = document.getElementById('loading');
+            loadingIndicator.classList.remove('hidden');
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/recommendations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const recommendations = await response.json();
+                displayRecommendations(recommendations);
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                alert('Error fetching recommendations. Please try again.');
+            } finally {
+                // Hide loading indicator
+                loadingIndicator.classList.add('hidden');
+            }
+        });
+
+        function displayRecommendations(recommendations) {
+            const recommendationsContainer = document.getElementById('recommendations');
+            recommendationsContainer.innerHTML = '';
+
+            if (recommendations.length === 0) {
+                recommendationsContainer.innerHTML = '<p class="p-8 text-center">No matching jobs found.</p>';
+                return;
+            }
+
+            recommendations.forEach((job, index) => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'mb-6';
+
+                jobCard.innerHTML = `
+            <div class="bg-[#0a1f1f] rounded-xl shadow-lg hover:shadow-xl text-white duration-300 p-8 space-y-6 backdrop-blur-sm border border-[#64FFDA]/20 transform hover:-translate-y-1">
+            <div class="heart-container" title="Like">
+            <input type="checkbox" class="checkbox" id="Give-It-An-Id">
+            <div class="svg-container">
+                <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                    </path>
+                </svg>
+                <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                    </path>
+                </svg>
+                <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="10,10 20,20"></polygon>
+                    <polygon points="10,50 20,50"></polygon>
+                    <polygon points="20,80 30,70"></polygon>
+                    <polygon points="90,10 80,20"></polygon>
+                    <polygon points="90,50 80,50"></polygon>
+                    <polygon points="80,80 70,70"></polygon>
+                </svg>
+            </div>
+        </div>
+            <h3 class="text-xl font-bold">${job.job_title}</h3>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+            <p><strong>Match Score:</strong> ${job.match_score}%</p>
+            <p><strong>Matching Skills:</strong> ${job.matching_skills.join(', ')}</p>
+            <p><strong>Skills to Learn:</strong> ${job.missing_skills.join(', ')}</p>
+            </div>
+        `;
+
+        recommendationsContainer.appendChild(jobCard);
+    });
+}</script>
+</body>
+</html>
