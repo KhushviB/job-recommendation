@@ -51,7 +51,7 @@
 
 import sys
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import json # Import json library
@@ -73,7 +73,7 @@ resume_analyser = ResumeAnalyzer()
 
 @app.route('/')
 def home():
-    return "hello, Flask"
+    return "Hello, Flask!"
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -130,9 +130,7 @@ def get_recommendations():
         print(f"Error processing request: {e}")
         return jsonify({'error': 'Invalid request data'}), 400
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    
-    port = int(os.environ.get("PORT", 10000))  # Use Render's PORT, default 10000
-    app.run(debug=True, host="0.0.0.0", port=port)
+    app.run(debug=True, host='0.0.0.0', port=5000) 
