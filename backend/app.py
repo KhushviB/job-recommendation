@@ -51,7 +51,7 @@
 
 import sys
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import json # Import json library
@@ -73,7 +73,7 @@ resume_analyser = ResumeAnalyzer()
 
 @app.route('/')
 def home():
-    return "Hello, Flask!"
+    return render_template("index.html")
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
