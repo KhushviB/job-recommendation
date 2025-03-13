@@ -41,7 +41,7 @@ Simply open the `index.html` file in a web browser.
 ## ✨ Contact
 👤 **Khushvi Bamrolia**  
 📧 Email: bamroliakhushvi@gmail.com  
-🔗 LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/khushvi)
+🔗 LinkedIn: [LinkedIn Profile](https://linkedin.com/in/khushvi)
 
 ---
 ⭐ If you like this project, give it a star on GitHub! ⭐
